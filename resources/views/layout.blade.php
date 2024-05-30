@@ -17,7 +17,7 @@
             <div class="col-md-12">
                 <nav class="navbar navbar-expand-lg navbar-light bg-light">
                     <div class="container-fluid">
-                        <a class="navbar-brand" href="{{ url('dashboard') }}">
+                        <a class="navbar-brand" href=" ">
                             <img src="{{ asset('images/posicon.png') }}" alt="" srcset=""
                                 style="height:50px; width:50px;">Point Of Sale
                             {{-- <h6>
@@ -36,6 +36,16 @@
                                 <a class="nav-link active" aria-current="page" href="{{ url('/brand') }}">Brand</a>
                                 <a class="nav-link active" aria-current="page" href="{{ url('/product') }}">Product</a>
                                 <a class="nav-link active" aria-current="page" href="#">Sales</a>
+                                <a class="nav-link active" aria-current="page" href="#">
+                                    <form method="POST" action="{{ url('logout') }}">
+                                @csrf
+                                <x-dropdown-link :href="route('logout')"
+                                    onclick="event.preventDefault();
+                                                this.closest('form').submit();">
+                                    {{ __('Log Out') }}
+                                </x-dropdown-link>
+                            </form>
+                                </a>
                             </div>
                         </div>
                     </div>
