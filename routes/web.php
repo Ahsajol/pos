@@ -37,24 +37,3 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
-
-require __DIR__ . '/auth.php';
-
-
-// / Route::get('/', function () {
-// //     return view('welcome');
-// // });
-// 
-// Route::get('', function () {
-//     return view('dashboard');
-// });
-// 
-// Route::get('dashboard', function () {
-//     return view('dashboard');
-// });
-// 
-// Route::resource('/category', CategoryController::class);
-// 
-// Route::resource('/brand', BrandController::class);
-// 
-// Route::resource('/product', ProductController::class);
