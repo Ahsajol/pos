@@ -38,17 +38,31 @@
                                 <a class="nav-link active" aria-current="page" href="{{ url('/sales') }}">Sales</a>
                             </div>
                         </div>
-                        <div class="btn btn-group-toggle">
-                            <form method="POST" action="{{ url('logout') }}">
-                                @csrf
-                                <x-dropdown-link :href="route('logout')"
-                                    onclick="event.preventDefault();
-                                                this.closest('form').submit();">
-                                    {{ __('Log Out') }}
-                                </x-dropdown-link>
-                            </form>
-                        </div>
                     </div>
+                    <button class="btn btn-outline-danger" style="text-decoration: none; background-color: red;">
+                        <form method="POST" action="{{ url('logout') }}">
+                            @csrf
+                            <x-dropdown-link :href="route('logout')"
+                                onclick="event.preventDefault();
+                                                this.closest('form').submit();">
+                                {{ __('LogOut') }}
+                            </x-dropdown-link>
+                        </form>
+                    </button>
+                    {{-- <div class="row">
+                        <div class="col">
+                            <div class="btn btn-danger">
+                                <form method="POST" action="{{ url('logout') }}">
+                                    @csrf
+                                    <x-dropdown-link :href="route('logout')"
+                                        onclick="event.preventDefault();
+                                                this.closest('form').submit();">
+                                        {{ __('Log Out') }}
+                                    </x-dropdown-link>
+                                </form>
+                            </div>
+                        </div>
+                    </div> --}}
                 </nav>
                 {{-- <nav class="navbar navbar-expand-lg navbar-light bg-light">
                     <div class="container-fluid">
