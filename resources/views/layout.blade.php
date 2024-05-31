@@ -17,7 +17,7 @@
             <div class="col-md-12">
                 <nav class="navbar navbar-expand-lg navbar-light bg-light">
                     <div class="container-fluid">
-                        <a class="navbar-brand" href="">
+                        <a class="navbar-brand" href="{{ 'layout' }}">
                             <img src="{{ asset('images/posicon.png') }}" alt="" srcset=""
                                 style="height:50px; width:50px;">Point Of Sale
                             {{-- <h6>
@@ -36,6 +36,7 @@
                                 <a class="nav-link active" aria-current="page" href="{{ url('/brand') }}">Brand</a>
                                 <a class="nav-link active" aria-current="page" href="{{ url('/product') }}">Product</a>
                                 <a class="nav-link active" aria-current="page" href="{{ url('/sales') }}">Sales</a>
+                                <a class="nav-link active" aria-current="page" href="{{ url('role-permission/role/index') }}">User Control</a>
                             </div>
                         </div>
                     </div>
