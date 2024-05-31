@@ -6,9 +6,6 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
-
-
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -21,14 +18,15 @@ use Illuminate\Support\Facades\Route;
 */
 
 // Route::get('/', function () {
-//     return view('welcome');
+//     return view('layout');
 // });
 
-Route::get('layout', function () {
+Route::get('/layout', function () {
     return view('layout');
 })->middleware(['auth', 'verified'])->name('layout');
 
 Route::middleware('auth')->group(function () {
+    // pos routs
     Route::resource('/category', CategoryController::class);
     Route::resource('/brand', BrandController::class);
     Route::resource('/product', ProductController::class);
@@ -38,8 +36,4 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-
-
-// ccccccccccccccccccccccccccckkkkkkkkkkkkkkkkkkkkkkkkk
-
-// mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
+require __DIR__ . '/auth.php';
