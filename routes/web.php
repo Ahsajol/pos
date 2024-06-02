@@ -2,9 +2,15 @@
 
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
+
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -22,10 +28,18 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::get('/layout', function () {
-    return view('layout');
+    return view('/layout');
 })->middleware(['auth', 'verified'])->name('layout');
 
 Route::middleware('auth')->group(function () {
+
+
+
+    Route::resource('user', UserController::class);
+    Route::get('user/{userId}/delete', [UserController::class, 'destroy'])->name('user.delete');
+    // Route::get('role/{roleId}/give-permission', [App\Http\Controllers\RoleController::class, 'addPermissionToRole']);
+    // Route::put('role/{roleId}/give-permission', [App\Http\Controllers\RoleController::class, 'updatePermissionToRole']);
+
 
     // Roles
     Route::resource('role', App\Http\Controllers\RoleController::class);
@@ -42,7 +56,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('/brand', BrandController::class);
     Route::resource('/product', ProductController::class);
 
-    
+
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
