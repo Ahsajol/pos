@@ -8,7 +8,7 @@
                 <a href="{{ url('role') }}" class="btn btn-primary mt-2">Back</a>
             </div>
         </div>
-        @if (@session('status'))
+        @if (session('status'))
             <div class="alert alert-success">
                 {{ session('status') }}
             </div>
@@ -26,10 +26,19 @@
                             <h2>Permissions</h2>
                             <hr>
                             <div class="row">
+                                <div class="col-12 mb-3">
+                                    <label for="select-all">
+                                        <input type="checkbox" id="select-all" />
+                                        Select All
+                                    </label>
+                                </div>
                                 @foreach ($permission as $item)
+                                    @php
+                                        $checkboxId = 'permission_' . $item->id;
+                                    @endphp
                                     <div class="col-md-3">
-                                        <label for="permission">
-                                            <input type="checkbox" id="permission" name="permission[]"
+                                        <label for="{{ $checkboxId }}">
+                                            <input type="checkbox" id="{{ $checkboxId }}" name="permission[]"
                                                 value="{{ $item->name }}"
                                                 {{ in_array($item->id, $rolePermission) ? 'checked' : '' }} />
                                             {{ $item->name }}
@@ -69,4 +78,15 @@
             margin-left: 20px;
         }
     </style>
+@endpush
+
+@push('scripts')
+    <script>
+        document.getElementById('select-all').addEventListener('click', function(event) {
+            var checkboxes = document.querySelectorAll('input[name="permission[]"]');
+            checkboxes.forEach(function(checkbox) {
+                checkbox.checked = event.target.checked;
+            });
+        });
+    </script>
 @endpush

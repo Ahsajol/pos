@@ -8,10 +8,6 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
-
-
-
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -23,44 +19,34 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', function () {
-//     return view('layout');
-// });
-
 Route::get('/layout', function () {
     return view('/layout');
 })->middleware(['auth', 'verified'])->name('layout');
 
-Route::middleware('auth')->group(function () {
-
-
-
+Route::middleware(['isAdmin'])->group(function () {
     Route::resource('user', UserController::class);
     Route::get('user/{userId}/delete', [UserController::class, 'destroy'])->name('user.delete');
-    // Route::get('role/{roleId}/give-permission', [App\Http\Controllers\RoleController::class, 'addPermissionToRole']);
-    // Route::put('role/{roleId}/give-permission', [App\Http\Controllers\RoleController::class, 'updatePermissionToRole']);
-
 
     // Roles
     Route::resource('role', App\Http\Controllers\RoleController::class);
-    Route::get('role/.{roleId}./delete', [App\Http\Controllers\RoleController::class, 'destroy']);
+    Route::get('role/{roleId}/delete', [App\Http\Controllers\RoleController::class, 'destroy']);
+
     Route::get('role/{roleId}/give-permission', [App\Http\Controllers\RoleController::class, 'addPermissionToRole']);
     Route::put('role/{roleId}/give-permission', [App\Http\Controllers\RoleController::class, 'updatePermissionToRole']);
 
-    // permissions
+    // Permissions
     Route::resource('permission', App\Http\Controllers\PermissionController::class);
-    Route::get('permission/.{permissionId}./delete', [App\Http\Controllers\PermissionController::class, 'destroy']);
+    Route::get('permission/{permissionId}/delete', [App\Http\Controllers\PermissionController::class, 'destroy']);
 
-    // pos routs
+    // POS routes
     Route::resource('/category', CategoryController::class);
     Route::resource('/brand', BrandController::class);
     Route::resource('/product', ProductController::class);
-
-
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
 
 require __DIR__ . '/auth.php';

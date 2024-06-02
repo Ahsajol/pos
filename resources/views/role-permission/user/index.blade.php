@@ -81,13 +81,17 @@
                                     @endif
                                 </td>
                                 <td>
+                                    @can('edit user')
                                     <a href="{{ route('user.edit', $user->id) }}" class="btn btn-primary btn-sm">Edit</a>
+                                    @endcan
+                                    @can('delete user')
                                     <form action="{{ route('user.destroy', $user->id) }}" method="POST"
                                         style="display:inline">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger btn-sm">Delete</button>
                                     </form>
+                                    @endcan
                                 </td>
                             </tr>
                         @endforeach

@@ -64,20 +64,24 @@
                                     
                                     <a href="{{ url('role/'. $item->id.'/give-permission') }}">
                                         <button class="btn btn-primary btn-sm">
-                                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Add/Edit Role
+                                            <i class="fa fa-pencil-square" aria-hidden="true"></i> Add/Edit Role
                                         </button>
                                     </a>
+                                    @can('edit role')
                                      <a href="{{ route('role.edit', $item->id) }}">
                                         <button class="btn btn-primary btn-sm">
-                                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit
+                                            <i class="fa fa-pencil-square" aria-hidden="true"></i> Edit
                                         </button>
                                     </a>
+                                    @endcan
+                                    @can('delete role')
                                     <form action="{{ route('role.destroy', $item->id) }}" method="POST"
                                         style ="display:inline">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger btn-sm">Delete</button>
                                     </form>
+                                    @endcan
                                 </td>
                             </tr>
                         @endforeach
