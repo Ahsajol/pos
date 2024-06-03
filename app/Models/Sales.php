@@ -10,14 +10,22 @@ class Sales extends Model
     protected $table = 'sales';
     protected $primaryKey = 'id';
     protected $fillable = [
-        'total', 'pay', 'balance'
+        'product_id',
+        'customer_id',
+        'quantity',
+        'price',
+        'total_price'
     ];
 
-    public function salesDetails()
+    public function product()
     {
-        return $this->hasMany(SalesDetails::class, 'sales_id');
+        return $this->belongsTo(Products::class, 'product_id');
     }
 
+    public function customer()
+    {
+        return $this->belongsTo(Customer::class, 'customer_id');
+    }
 
     use HasFactory;
 }

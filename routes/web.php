@@ -2,12 +2,17 @@
 
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\SalesController;
 use App\Http\Controllers\UserController;
+use App\Models\Sales;
 use Illuminate\Support\Facades\Route;
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,7 +25,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/layout', function () {
-    return view('/layout');
+    return view('dashboard');
 })->middleware(['auth', 'verified'])->name('layout');
 
 Route::middleware(['isAdmin'])->group(function () {
@@ -42,6 +47,21 @@ Route::middleware(['isAdmin'])->group(function () {
     Route::resource('/category', CategoryController::class);
     Route::resource('/brand', BrandController::class);
     Route::resource('/product', ProductController::class);
+    Route::resource('/sale', SalesController::class);
+
+    // sale Routes
+    Route::get('/sale', [SalesController::class, 'index'])->name('sale.index');
+    Route::post('/sale', [SalesController::class, 'store'])->name('sale.store');
+
+    // Customer All Routes
+    Route::get('customer', [CustomerController::class, 'index'])->name('customer.index');
+    Route::get('customer/create', [CustomerController::class, 'create'])->name('customer.create');
+    Route::post('customer', [CustomerController::class, 'store'])->name('customer.store');
+    Route::get('customer/{id}/view', [CustomerController::class, 'show'])->name('customer.view');
+    // Route::get('customer/{id}/invoice', [CustomerController::class, 'show'])->name('customer.invoice');
+    Route::get('customer/{id}/edit', [CustomerController::class, 'edit'])->name('customer.edit');
+    Route::put('customer/{id}', [CustomerController::class, 'update'])->name('customer.update');
+    Route::delete('customer/{id}', [CustomerController::class, 'destroy'])->name('customer.destroy');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

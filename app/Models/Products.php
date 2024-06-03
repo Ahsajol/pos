@@ -16,6 +16,10 @@ class Products extends Model
         'price'
     ];
 
+    public function product()
+    {
+        return $this->hasMany(Categories::class, 'product_id');
+    }
     public function category()
     {
         return $this->belongsTo(Categories::class, 'cat_id');

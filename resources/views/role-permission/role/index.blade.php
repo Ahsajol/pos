@@ -1,7 +1,7 @@
 @extends('layout')
 @section('content')
 @include('role-permission.nav-links')
-    <div class="container">
+    <div class="container" style="margin-top:100px;">
        <div class="d-flex justify-content-center align-items-center">
             <div class="text-center">
                 <h2 class="mt-3">Roles Assignment</h2>
@@ -17,7 +17,7 @@
         <div class="row">
             <div class="col">
                 <div class="form-area">
-                    <form method="POST" action="{{ url('role') }}">
+                    <form method="POST" action="{{ url('/role') }}">
                         @csrf
                         <div class="row">
                             <div class="col">

@@ -1,7 +1,7 @@
 @extends('layout')
 @section('content')
 @include('role-permission.nav-links')
-    <div class="container">
+    <div class="container" style="margin-top:100px;">
        <div class="d-flex justify-content-center align-items-center">
             <div class="text-center">
                 <h2 class="mt-3">Permissions</h2>
