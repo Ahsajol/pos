@@ -14,50 +14,43 @@
                 </div>
             @endif
         </div>
-        <h3 align="center" class="mt-4">Customer Manage</h3>
+        <h3 align="center" class="mt-4">Supplier Manage</h3>
         <div class="row">
             <div class="col-md-2">
             </div>
             <div class="col-md-8">
                 <div class="form-area">
-                    <form method="POST" action="{{ route('customer.store') }}">
+                    <form method="POST" action="{{ route('supplier.store') }}">
                         @csrf
                         <div class="row">
                             <!-- Row with three fields: Name, Address, Phone -->
                             <div class="col-md-4">
                                 <label>Name</label>
-                                <input type="text" class="form-control" name="customername">
-                                @error('customername')
+                                <input type="text" class="form-control" name="suppliername">
+                                @error('suppliername')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
                             <div class="col-md-4">
                                 <label>Address</label>
-                                <input type="text" class="form-control" name="customeraddress">
-                                @error('customeraddress')
+                                <input type="text" class="form-control" name="supplieraddress">
+                                @error('supplieraddress')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
                             <div class="col-md-4">
                                 <label>Phone</label>
-                                <input type="number" id="number" class="form-control" name="customerphone">
-                                @error('customerphone')
+                                <input type="number" id="number" class="form-control" name="supplierphone">
+                                @error('supplierphone')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
                         </div>
                         <div class="row mt-3">
                             <div class="col-md-3">
-                                <label>Previous Due</label>
-                                <input type="number" class="form-control" id="number" name="customerpreviousdue">
-                                @error('customerpreviousdue')
-                                    <small class="text-danger">{{ $message }}</small>
-                                @enderror
-                            </div>
-                            <div class="col-md-3">
-                                <label>Credit Limit</label>
-                                <input type="number" class="form-control" id="number" name="customercreditlimit">
-                                @error('customercreditlimit')
+                                <label>Previous payment Due</label>
+                                <input type="number" class="form-control" id="number" name="supplierpreviousdue">
+                                @error('supplierpreviousdue')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
@@ -81,7 +74,7 @@
                 </div>
             </div>
             <div class="col-md-12 mt-5 text-center">
-                <h4>Customer List</h4>
+                <h4>Suppliers List</h4>
                 <hr class="mx-auto" style="width: 50%;">
             </div>
             <div class="col-md-12">
@@ -92,39 +85,37 @@
                             <th scope="col">Name</th>
                             <th scope="col">Address</th>
                             <th scope="col">Phone</th>
-                            <th scope="col">previous due</th>
-                            <th scope="col">Credit Limit</th>
+                            <th scope="col">Paymet due</th>
                             <th scope="col">Status</th>
                             <th scope="col">Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($customers as $key => $customer)
+                        @foreach ($suppliers as $key => $supplier)
                             <tr>
                                 <td scope="col">{{ ++$key }}</td>
-                                <td scope="col">{{ $customer->customername }}</td>
-                                <td scope="col">{{ $customer->customeraddress }}</td>
-                                <td scope="col">{{ $customer->customerphone }}</td>
-                                <td scope="col">{{ $customer->customerpreviousdue }}</td>
-                                <td scope="col">{{ $customer->customercreditlimit }}</td>
+                                <td scope="col">{{ $supplier->suppliername }}</td>
+                                <td scope="col">{{ $supplier->supplieraddress }}</td>
+                                <td scope="col">{{ $supplier->supplierphone }}</td>
+                                <td scope="col">{{ $supplier->supplierpreviousdue }}</td>
                                 <td scope="col">
-                                    @if ($customer->status == 1)
+                                    @if ($supplier->status == 1)
                                         Active
                                     @else
                                         Inactive
                                     @endif
                                 </td>
                                 <td scope="col">
-                                    <a href="{{ route('customer.edit', $customer->id) }}">
+                                    <a href="{{ route('supplier.edit', $supplier->id) }}">
                                         <button class="btn btn-outline-info btn-sm">
                                             <i class="fa fa-pencil-square" aria-hidden="true"></i> Edit
                                         </button>
                                     </a>
                                     <button class="btn btn-outline-warning btn-sm view-customer" data-toggle="modal"
-                                        data-target="#viewCustomerModal{{ $customer->id }}">
+                                        data-target="#viewCustomerModal{{ $supplier->id }}">
                                         <i class="fa fa-eye" aria-hidden="true"></i> View
                                     </button>
-                                    <form action="{{ route('customer.destroy', $customer->id) }}" method="POST"
+                                    <form action="{{ route('supplier.destroy', $supplier->id) }}" method="POST"
                                         style ="display:inline">
                                         @csrf
                                         @method('DELETE')
@@ -134,13 +125,13 @@
                                     </form>
                                 </td>
                             </tr>
-                            <div class="modal fade" id="viewCustomerModal{{ $customer->id }}" tabindex="-1" role="dialog"
-                                aria-labelledby="viewCustomerModalLabel{{ $customer->id }}" aria-hidden="true">
+                            <div class="modal fade" id="viewCustomerModal{{ $supplier->id }}" tabindex="-1" role="dialog"
+                                aria-labelledby="viewCustomerModalLabel{{ $supplier->id }}" aria-hidden="true">
                                 <div class="modal-dialog modal-lg" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="viewCustomerModalLabel{{ $customer->id }}">
-                                                Customer Details</h5>
+                                            <h5 class="modal-title" id="viewCustomerModalLabel{{ $supplier->id }}">
+                                                Supplier Details</h5>
                                             <button type="button" class="btn-danger" data-dismiss="modal"
                                                 aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
@@ -148,11 +139,11 @@
                                         </div>
                                         <div class="modal-body">
                                             <!-- Customer details display -->
-                                            <p><strong>Name:</strong> {{ $customer->customername }}</p>
-                                            <p><strong>Address:</strong> {{ $customer->customeraddress }}</p>
-                                            <p><strong>Phone:</strong> {{ $customer->customerphone }}</p>
-                                            <p><strong>Previous Due:</strong> {{ $customer->customerpreviousdue }}</p>
-                                            <p><strong>Credit Limit:</strong> {{ $customer->customercreditlimit }}</p>
+                                            <p><strong>Name:</strong> {{ $supplier->suppliername }}</p>
+                                            <p><strong>Address:</strong> {{ $supplier->supplieraddress }}</p>
+                                            <p><strong>Phone:</strong> {{ $supplier->supplierphone }}</p>
+                                            <p><strong>Previous Due:</strong> {{ $supplier->supplierpreviousdue }}</p>
+                                            {{-- <p><strong>Credit Limit:</strong> {{ $customer->customercreditlimit }}</p>
                                             <p>
                                                 <strong>Available Limit:</strong>
                                                 <span
@@ -162,7 +153,7 @@
                                                     class="{{ $availabledredit < 5000 ? 'text-danger' : '' }}">
                                                     {{ $availabledredit }}
                                                 </span>
-                                            </p>
+                                            </p> --}}
                                         </div>
                                     </div>
                                 </div>

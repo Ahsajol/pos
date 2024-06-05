@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,6 +17,12 @@
             color: #ff0000;
         }
     </style>
+    {{-- <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- jQuery and Bootstrap JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> --}}
+
 </head>
 @include('libraries.scripts')
 
@@ -24,7 +31,7 @@
         <div class="row">
             <div class="col-md-12">
                 <nav class="navbar navbar-expand-lg navbar-light"
-                    style="background-color: #b3e5f6; position: fixed; width: 100%; z-index: 1030;">
+                    style="background-color: #b3e5f6; position: fixed; width: 98%; z-index: 1030;">
                     <div class="container-fluid">
                         <a class="navbar-brand" href="{{ url('/') }}">
                             <img src="{{ asset('images/posicon.png') }}" alt=""
@@ -36,8 +43,22 @@
                             <span class="navbar-toggler-icon"></span>
                         </button>
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                                <li class="nav-item">
+                            <ul class="navbar-nav me-5 mb-2 mb-lg-0">
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle {{ Request::is('brand*','category*','product*','customer*') ? 'active' : '' }}"
+                                        href="#" id="navbarDropdownRole" role="button" data-bs-toggle="dropdown"
+                                        aria-expanded="false">
+                                        Settings
+                                    </a>
+                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownRole">
+                                        <li><a class="dropdown-item {{ Request::is('brand') ? 'active' : '' }}"  href="{{ url('/brand') }}">Brands</a></li>
+                                        <li><a class="dropdown-item {{ Request::is('category') ? 'active' : '' }}"  href="{{ url('/category') }}">Categories</a></li>
+                                        <li><a class="dropdown-item {{ Request::is('product') ? 'active' : '' }}"  href="{{ url('/product') }}">Products</a></li>
+                                        <li><a class="dropdown-item {{ Request::is('customer') ? 'active' : '' }}"  href="{{ url('/customer') }}">Customers</a></li>
+                                        <li><a class="dropdown-item {{ Request::is('supplier') ? 'active' : '' }}"  href="{{ url('/supplier') }}">Supplier</a></li>
+                                    </ul>
+                                </li>
+                                {{-- <li class="nav-item">
                                     <a class="nav-link {{ Request::is('brand') ? 'active' : '' }}"
                                         href="{{ url('/brand') }}">Brand</a>
                                 </li>
@@ -47,18 +68,22 @@
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link {{ Request::is('category') ? 'active' : '' }}"
-                                        href="{{ url('/category') }}">Category</a>
+                                        href="{{ url('/category') }}">Category</a> 
                                 </li>
+                                <li class="nav-item">
+                                    <a class="nav-link {{ Request::is('customer') ? 'active' : '' }}"
+                                        href="{{ url('/customer') }}">Customer</a>
+                                </li>--}}
                                 <li class="nav-item">
                                     <a class="nav-link {{ Request::is('sales') ? 'active' : '' }}"
                                         href="{{ url('/sales') }}">Sales</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link {{ Request::is('customer') ? 'active' : '' }}"
-                                        href="{{ url('/customer') }}">Customer</a>
+                                    <a class="nav-link {{ Request::is('purchase') ? 'active' : '' }}"
+                                        href="{{ url('/purchase') }}">Purchase</a>
                                 </li>
                                 <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle {{ Request::is('role*','permission*','user*') ? 'active' : '' }}"
+                                    <a class="nav-link dropdown-toggle {{ Request::is('role*', 'permission*', 'user*') ? 'active' : '' }}"
                                         href="#" id="navbarDropdownRole" role="button" data-bs-toggle="dropdown"
                                         aria-expanded="false">
                                         User Control
@@ -74,13 +99,14 @@
                                     </ul>
                                 </li>
                             </ul>
-                            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                            <ul class="navbar-nav me-5 mb-2 mb-lg-0">
                                 <li class="nav-item dropdown">
                                     <button type="button" class="btn btn-secondary dropdown-toggle" id="navbarDropdown"
                                         role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                         <i class="fa fa-user"></i> {{ Auth::user()->name }}
                                     </button>
-                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown"
+                                        style="margin-left: -20px;">
                                         <li>
                                             <a class="dropdown-item" href="#">
                                                 <i class="fa fa-user"></i> Profile: {{ Auth::user()->name }}
@@ -118,10 +144,10 @@
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    
+
     <script src="{{ asset('js/all.min.js') }}"></script>
     <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('js/custom.js') }}"></script>
 </body>
-    
+
 </html>

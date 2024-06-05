@@ -7,28 +7,28 @@
             <div class="col-md-2"></div>
             <div class="col-md-8">
                 <div class="form-area">
-                    <form method="POST" action="{{ route('customer.update', $customers->id) }}">
+                    <form method="POST" action="{{ route('supplier.update', $suppliers->id) }}">
                         @csrf
                         @method('PUT')
                         <div class="row">
                             <div class="col-md-4">
-                                <label>Name</label>
-                                <input type="text" class="form-control" name="customername" value="{{ $customers->customername }}">
-                                @error('customername')
+                                <label>Supplier Name</label>
+                                <input type="text" class="form-control" name="suppliername" value="{{ $suppliers->suppliername }}">
+                                @error('suppliername')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
                             <div class="col-md-4">
                                 <label>Address</label>
-                                <input type="text" class="form-control" name="customeraddress" value="{{ $customers->customeraddress }}">
+                                <input type="text" class="form-control" name="supplieraddress" value="{{ $suppliers->supplieraddress }}">
                                 @error('customeraddress')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
                             <div class="col-md-4">
                                 <label>Phone</label>
-                                <input type="number" id="number" class="form-control" name="customerphone" value="{{ $customers->customerphone }}">
-                                @error('customerphone')
+                                <input type="number" id="number" class="form-control" name="supplierphone" value="{{ $suppliers->supplierphone }}">
+                                @error('supplierphone')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
@@ -36,15 +36,8 @@
                         <div class="row mt-3">
                             <div class="col-md-4">
                                 <label>Previous Due</label>
-                                <input type="number" class="form-control" id="number" name="customerpreviousdue" value="{{ $customers->customerpreviousdue }}">
-                                @error('customerpreviousdue')
-                                    <small class="text-danger">{{ $message }}</small>
-                                @enderror
-                            </div>
-                            <div class="col-md-4">
-                                <label>Credit Limit</label>
-                                <input type="number" class="form-control" id="number" name="customercreditlimit" value="{{ $customers->customercreditlimit }}">
-                                @error('customercreditlimit')
+                                <input type="number" class="form-control" id="number" name="customerpreviousdue" value="{{ $suppliers->supplierpreviousdue }}">
+                                @error('supplierpreviousdue')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
@@ -53,7 +46,7 @@
                             <div class="col-md-6">
                                 <label>Status</label>
                                 <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" id="status" name="status" value="1" {{ $customers->status == 1 ? 'checked' : '' }}>
+                                    <input type="checkbox" class="form-check-input" id="status" name="status" value="1" {{ $suppliers->status == 1 ? 'checked' : '' }}>
                                     <label class="form-check-label" for="status">Active</label>
                                 </div>
                             </div>

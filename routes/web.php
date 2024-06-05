@@ -8,6 +8,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SalesController;
+use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UserController;
 use App\Models\Sales;
 use Illuminate\Support\Facades\Route;
@@ -24,9 +25,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/', function () {
+    return view('/dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
 Route::get('/layout', function () {
     return view('dashboard');
-})->middleware(['auth', 'verified'])->name('layout');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware(['isAdmin'])->group(function () {
     Route::resource('user', UserController::class);
@@ -57,11 +62,23 @@ Route::middleware(['isAdmin'])->group(function () {
     Route::get('customer', [CustomerController::class, 'index'])->name('customer.index');
     Route::get('customer/create', [CustomerController::class, 'create'])->name('customer.create');
     Route::post('customer', [CustomerController::class, 'store'])->name('customer.store');
-    Route::get('customer/{id}/view', [CustomerController::class, 'show'])->name('customer.view');
+    // Route::get('customer/{id}/view', [CustomerController::class, 'show'])->name('customer.view');
+    Route::get('/customer/{id}', [CustomerController::class, 'show']);
     // Route::get('customer/{id}/invoice', [CustomerController::class, 'show'])->name('customer.invoice');
     Route::get('customer/{id}/edit', [CustomerController::class, 'edit'])->name('customer.edit');
     Route::put('customer/{id}', [CustomerController::class, 'update'])->name('customer.update');
     Route::delete('customer/{id}', [CustomerController::class, 'destroy'])->name('customer.destroy');
+
+    // Suppliers All Routes
+    Route::get('supplier', [SupplierController::class, 'index'])->name('supplier.index');
+    Route::get('supplier/create', [SupplierController::class, 'create'])->name('supplier.create');
+    Route::post('supplier', [SupplierController::class, 'store'])->name('supplier.store');
+    // Route::get('customer/{id}/view', [SupplierController::class, 'show'])->name('customer.view');
+    Route::get('/supplier/{id}', [SupplierController::class, 'show']);
+    // Route::get('customer/{id}/invoice', [SupplierController::class, 'show'])->name('customer.invoice');
+    Route::get('supplier/{id}/edit', [SupplierController::class, 'edit'])->name('supplier.edit');
+    Route::put('supplier/{id}', [SupplierController::class, 'update'])->name('supplier.update');
+    Route::delete('supplier/{id}', [SupplierController::class, 'destroy'])->name('supplier.destroy');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
