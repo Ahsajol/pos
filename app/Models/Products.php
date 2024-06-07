@@ -29,5 +29,9 @@ class Products extends Model
     {
         return $this->belongsTo(Brand::class, 'brand_id');
     }
+    public function purchases()
+    {
+        return $this->hasMany(Purchases::class, 'product_id');
+    }
     use HasFactory;
 }

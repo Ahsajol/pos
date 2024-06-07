@@ -18,6 +18,10 @@ class Brand extends Model
     {
         return $this->hasMany(Products::class, 'brand_id');
     }
+    public function Sales()
+    {
+        return $this->hasMany(Sales::class, 'brand_id');
+    }
 
     use HasFactory;
 }

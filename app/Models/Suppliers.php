@@ -16,5 +16,9 @@ class Suppliers extends Model
         'supplierpreviousdue',
         'status'
     ];
+    public function suppliers()
+    {
+        return $this->hasMany(Purchases::class, 'id');
+    }
     use HasFactory;
 }

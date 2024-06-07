@@ -18,5 +18,9 @@ class Categories extends Model
     {
         return $this->hasMany(Categories::class, 'cat_id');
     }
+    public function Sales()
+    {
+        return $this->hasMany(Sales::class, 'cat_id');
+    }
     use HasFactory;
 }

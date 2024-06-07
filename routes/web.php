@@ -6,6 +6,7 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SalesController;
 use App\Http\Controllers\SupplierController;
@@ -52,11 +53,7 @@ Route::middleware(['isAdmin'])->group(function () {
     Route::resource('/category', CategoryController::class);
     Route::resource('/brand', BrandController::class);
     Route::resource('/product', ProductController::class);
-    Route::resource('/sale', SalesController::class);
-
-    // sale Routes
-    Route::get('/sale', [SalesController::class, 'index'])->name('sale.index');
-    Route::post('/sale', [SalesController::class, 'store'])->name('sale.store');
+    // Route::resource('/sale', SalesController::class);
 
     // Customer All Routes
     Route::get('customer', [CustomerController::class, 'index'])->name('customer.index');
@@ -79,6 +76,17 @@ Route::middleware(['isAdmin'])->group(function () {
     Route::get('supplier/{id}/edit', [SupplierController::class, 'edit'])->name('supplier.edit');
     Route::put('supplier/{id}', [SupplierController::class, 'update'])->name('supplier.update');
     Route::delete('supplier/{id}', [SupplierController::class, 'destroy'])->name('supplier.destroy');
+
+    // purchase All Routes
+    Route::get('purchase', [PurchaseController::class, 'index'])->name('purchase.index');
+    Route::get('purchase/create', [PurchaseController::class, 'create'])->name('purchase.create');
+    Route::post('purchase', [PurchaseController::class, 'store'])->name('purchase.store');
+    Route::get('purchase/{id}/show', [PurchaseController::class, 'show'])->name('purchase.show');
+    // Route::get('/purchase/{id}', [PurchaseController::class, 'show']);
+    // Route::get('customer/{id}/invoice', [PurchaseController::class, 'show'])->name('customer.invoice');
+    Route::get('purchase/{id}/edit', [PurchaseController::class, 'edit'])->name('purchase.edit');
+    Route::put('purchase/{id}', [PurchaseController::class, 'update'])->name('purchase.update');
+    Route::delete('purchase/{id}', [PurchaseController::class, 'destroy'])->name('purchase.destroy');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

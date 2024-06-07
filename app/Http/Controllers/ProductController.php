@@ -95,4 +95,16 @@ class ProductController extends Controller
         Products::destroy($id);
         return redirect('product')->with('flash_message', 'Data deleted!');
     }
+
+    public function getFilteredProducts(Request $request)
+    {
+        $brandId = $request->query('brand_id');
+        $categoryId = $request->query('cat_id');
+
+        $products = Products::where('brand_id', $brandId)
+            ->where('cat_id', $categoryId)
+            ->get();
+
+        return response()->json($products);
+    }
 }

@@ -75,8 +75,8 @@
                                         href="{{ url('/customer') }}">Customer</a>
                                 </li>--}}
                                 <li class="nav-item">
-                                    <a class="nav-link {{ Request::is('sales') ? 'active' : '' }}"
-                                        href="{{ url('/sales') }}">Sales</a>
+                                    <a class="nav-link {{ Request::is('sale') ? 'active' : '' }}"
+                                        href="{{ url('/sale') }}">Sales</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link {{ Request::is('purchase') ? 'active' : '' }}"
@@ -134,6 +134,15 @@
         </div>
     </div>
     @include('libraries.style')
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="{{ asset('js/all.min.js') }}"></script>
+    <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('js/custom.js') }}"></script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
     <script>
         $(document).ready(function() {
             setTimeout(function() {
@@ -141,13 +150,8 @@
             }, 3000); // 3000 milliseconds = 3 seconds
         });
     </script>
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-    <script src="{{ asset('js/all.min.js') }}"></script>
-    <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
-    <script src="{{ asset('js/custom.js') }}"></script>
+    
 </body>
 
 </html>
