@@ -24,7 +24,7 @@ class ProductController extends Controller
 
     public function index()
     {
-        $products = $this->product->all();
+        $products = $this->product->orderBy('id', 'desc')->get();
         $category = Categories::pluck('catname', 'id');
         $brand = Brand::pluck('brandname', 'id');
         return view('product.index', compact('products', 'category', 'brand'));

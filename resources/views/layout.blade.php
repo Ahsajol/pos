@@ -45,17 +45,18 @@
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul class="navbar-nav me-5 mb-2 mb-lg-0">
                                 <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle {{ Request::is('brand*','category*','product*','customer*') ? 'active' : '' }}"
+                                    <a class="nav-link dropdown-toggle {{ Request::is('brand*', 'category*', 'product*', 'customer*') ? 'active' : '' }}"
                                         href="#" id="navbarDropdownRole" role="button" data-bs-toggle="dropdown"
                                         aria-expanded="false">
                                         Settings
                                     </a>
                                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownRole">
-                                        <li><a class="dropdown-item {{ Request::is('brand') ? 'active' : '' }}"  href="{{ url('/brand') }}">Brands</a></li>
-                                        <li><a class="dropdown-item {{ Request::is('category') ? 'active' : '' }}"  href="{{ url('/category') }}">Categories</a></li>
-                                        <li><a class="dropdown-item {{ Request::is('product') ? 'active' : '' }}"  href="{{ url('/product') }}">Products</a></li>
-                                        <li><a class="dropdown-item {{ Request::is('customer') ? 'active' : '' }}"  href="{{ url('/customer') }}">Customers</a></li>
-                                        <li><a class="dropdown-item {{ Request::is('supplier') ? 'active' : '' }}"  href="{{ url('/supplier') }}">Supplier</a></li>
+                                        <li><a class="dropdown-item {{ Request::is('brand') ? 'active' : '' }}"
+                                                href="{{ url('/brand') }}">Brands</a></li>
+                                        <li><a class="dropdown-item {{ Request::is('category') ? 'active' : '' }}"
+                                                href="{{ url('/category') }}">Categories</a></li>
+                                        <li><a class="dropdown-item {{ Request::is('product') ? 'active' : '' }}"
+                                                href="{{ url('/product') }}">Products</a></li>
                                     </ul>
                                 </li>
                                 {{-- <li class="nav-item">
@@ -73,14 +74,43 @@
                                 <li class="nav-item">
                                     <a class="nav-link {{ Request::is('customer') ? 'active' : '' }}"
                                         href="{{ url('/customer') }}">Customer</a>
-                                </li>--}}
-                                <li class="nav-item">
-                                    <a class="nav-link {{ Request::is('sale') ? 'active' : '' }}"
-                                        href="{{ url('/sale') }}">Sales</a>
+                                </li> --}}
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle {{ Request::is('supplier*', 'customer*', 'supplierPayment*', 'customerDueCollection*') ? 'active' : '' }}"
+                                        href="#" id="navbarDropdownRole" role="button" data-bs-toggle="dropdown"
+                                        aria-expanded="false">
+                                        Supplier & Customer
+                                    </a>
+                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownRole">
+                                        <li><a class="dropdown-item {{ Request::is('supplier') ? 'active' : '' }}"
+                                                href="{{ url('/supplier') }}">Supplier</a></li>
+                                        <li><a class="dropdown-item {{ Request::is('supplierPayment') ? 'active' : '' }}"
+                                                href="{{ url('/supplierPayment') }}">Supplier Payment</a></li>
+                                        <li><a class="dropdown-item {{ Request::is('customer') ? 'active' : '' }}"
+                                                href="{{ url('/customer') }}">Customers</a></li>
+                                        <li><a class="dropdown-item {{ Request::is('customerDueCollection') ? 'active' : '' }}"
+                                                href="{{ url('/customerDueCollection') }}">Customers Due Collection</a>
+                                        </li>
+                                    </ul>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link {{ Request::is('purchase') ? 'active' : '' }}"
                                         href="{{ url('/purchase') }}">Purchase</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link {{ Request::is('sale') ? 'active' : '' }}"
+                                        href="{{ url('/sale') }}">Sales</a>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle {{ Request::is('duereport*') ? 'active' : '' }}"
+                                        href="#" id="navbarDropdownRole" role="button" data-bs-toggle="dropdown"
+                                        aria-expanded="false">
+                                        Reports
+                                    </a>
+                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownRole">
+                                        <li><a class="dropdown-item {{ Request::is('duereport') ? 'active' : '' }}"
+                                                href="{{ url('duereport') }}">Supplier Due Report</a></li>
+                                    </ul>
                                 </li>
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle {{ Request::is('role*', 'permission*', 'user*') ? 'active' : '' }}"
@@ -101,8 +131,9 @@
                             </ul>
                             <ul class="navbar-nav me-5 mb-2 mb-lg-0">
                                 <li class="nav-item dropdown">
-                                    <button type="button" class="btn btn-secondary dropdown-toggle" id="navbarDropdown"
-                                        role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <button type="button" class="btn btn-secondary dropdown-toggle"
+                                        id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+                                        aria-expanded="false">
                                         <i class="fa fa-user"></i> {{ Auth::user()->name }}
                                     </button>
                                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown"
@@ -113,7 +144,8 @@
                                             </a>
                                         </li>
                                         <li>
-                                            <form method="POST" action="{{ url('logout') }}" style="display: inline;">
+                                            <form method="POST" action="{{ url('logout') }}"
+                                                style="display: inline;">
                                                 @csrf
                                                 <x-dropdown-link class="btn btn-outline-danger" :href="route('logout')"
                                                     onclick="event.preventDefault(); this.closest('form').submit();">
@@ -142,7 +174,7 @@
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    
+
     <script>
         $(document).ready(function() {
             setTimeout(function() {
@@ -151,7 +183,7 @@
         });
     </script>
 
-    
+
 </body>
 
 </html>

@@ -15,6 +15,7 @@ class Purchases extends Model
         'product_id',
         'quantity',
         'price',
+        'paid_amount',
         'total_price'
     ];
     public function product()

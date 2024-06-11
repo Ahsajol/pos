@@ -76,6 +76,7 @@ Route::middleware(['isAdmin'])->group(function () {
     Route::get('supplier/{id}/edit', [SupplierController::class, 'edit'])->name('supplier.edit');
     Route::put('supplier/{id}', [SupplierController::class, 'update'])->name('supplier.update');
     Route::delete('supplier/{id}', [SupplierController::class, 'destroy'])->name('supplier.destroy');
+    Route::get('duereport', [SupplierController::class, 'dueReport'])->name('supplier.due_report');
 
     // purchase All Routes
     Route::get('purchase', [PurchaseController::class, 'index'])->name('purchase.index');
@@ -83,7 +84,7 @@ Route::middleware(['isAdmin'])->group(function () {
     Route::post('purchase', [PurchaseController::class, 'store'])->name('purchase.store');
     Route::get('purchase/{id}/show', [PurchaseController::class, 'show'])->name('purchase.show');
     // Route::get('/purchase/{id}', [PurchaseController::class, 'show']);
-    // Route::get('customer/{id}/invoice', [PurchaseController::class, 'show'])->name('customer.invoice');
+    Route::get('purchase/invoice/{id}', [PurchaseController::class, 'invoice'])->name('purchase.invoice');
     Route::get('purchase/{id}/edit', [PurchaseController::class, 'edit'])->name('purchase.edit');
     Route::put('purchase/{id}', [PurchaseController::class, 'update'])->name('purchase.update');
     Route::delete('purchase/{id}', [PurchaseController::class, 'destroy'])->name('purchase.destroy');

@@ -65,4 +65,9 @@ class SupplierController extends Controller
         $suppliers->delete();
         return redirect()->back()->with('alert', 'confirm')->with('error', 'Data Deleted');
     }
+    public function dueReport()
+    {
+        $suppliers = Suppliers::all();
+        return view('supplier.duereport', compact('suppliers'));
+    }
 }

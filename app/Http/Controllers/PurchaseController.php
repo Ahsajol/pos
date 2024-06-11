@@ -31,6 +31,7 @@ class PurchaseController extends Controller
             'price' => 'required',
             'quantity' => 'required',
             'total_price' => 'required',
+            'paid_amount' => 'required',
         ]);
 
         $purchase = Purchases::create($request->all());
@@ -38,9 +39,16 @@ class PurchaseController extends Controller
         // Update inventory
         $inventory = Inventory::firstOrNew(['product_id' => $request->product_id]);
         $inventory->stock_qty += $request->quantity;
+        $inventory->stock_value += $request->total_price;
         $inventory->save();
 
-        return redirect('purchase')->with(['success' => 'Data Added Successfully']);
+        // Update supplier due
+        $supplier = Suppliers::findOrFail($request->supplier_id);
+        $supplier->supplierpreviousdue += ($request->total_price - $request->paid_amount);
+        $supplier->save();
+
+        return redirect()->route('purchase.invoice', $purchase->id)
+            ->with('success', 'Product purchased successfully.');
     }
 
     public function show($id)
@@ -59,13 +67,7 @@ class PurchaseController extends Controller
 
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'supplier_id' => 'required|exists:suppliers,id',
-            'product_id' => 'required|exists:products,id',
-            'price' => 'required',
-            'quantity' => 'required',
-            'total_price' => 'required',
-        ]);
+       
 
         $purchase = Purchases::findOrFail($id);
 
@@ -74,6 +76,12 @@ class PurchaseController extends Controller
         $inventory->stock_qty -= $purchase->quantity;  // Subtract old quantity
         $inventory->stock_qty += $request->quantity;  // Add new quantity
         $inventory->save();
+
+        // Update supplier due
+        $supplier = Suppliers::findOrFail($request->supplier_id);
+        $supplier->supplierpreviousdue -= ($purchase->total_price - $purchase->paid_amount); // Remove old due
+        $supplier->supplierpreviousdue += ($request->total_price - $request->paid_amount); // Add new due
+        $supplier->save();
 
         $purchase->update($request->all());
 
@@ -89,7 +97,18 @@ class PurchaseController extends Controller
         $inventory->stock_qty -= $purchase->quantity;
         $inventory->save();
 
+        // Update supplier due
+        $supplier = Suppliers::findOrFail($purchase->supplier_id);
+        $supplier->supplierpreviousdue -= ($purchase->total_price - $purchase->paid_amount);
+        $supplier->save();
+
         $purchase->delete();
         return redirect()->back()->with('alert', 'confirm')->with('error', 'Data Deleted');
+    }
+
+    public function invoice($id)
+    {
+        $purchase = Purchases::with('supplier', 'product')->findOrFail($id);
+        return view('purchase.invoice', compact('purchase'));
     }
 }
