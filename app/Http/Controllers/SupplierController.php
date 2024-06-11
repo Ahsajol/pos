@@ -65,9 +65,23 @@ class SupplierController extends Controller
         $suppliers->delete();
         return redirect()->back()->with('alert', 'confirm')->with('error', 'Data Deleted');
     }
-    public function dueReport()
+    public function dueReport(Request $request)
     {
-        $suppliers = Suppliers::all();
+        $query = Suppliers::query();
+
+        if ($request->has('suppliername')) {
+            $query->where('suppliername', 'like', '%' . $request->input('suppliername') . '%');
+        }
+
+        if ($request->has('supplierphone')) {
+            $query->where('supplierphone', 'like', '%' . $request->input('supplierphone') . '%');
+        }
+
+        if ($request->has('date')) {
+            $date = $request->input('created_at');
+            $query->whereDate('created_at', $date);
+        }
+        $suppliers = $query->get();
         return view('supplier.duereport', compact('suppliers'));
     }
 }

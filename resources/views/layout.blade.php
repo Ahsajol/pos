@@ -45,7 +45,7 @@
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul class="navbar-nav me-5 mb-2 mb-lg-0">
                                 <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle {{ Request::is('brand*', 'category*', 'product*', 'customer*') ? 'active' : '' }}"
+                                    <a class="nav-link dropdown-toggle {{ Request::is('brand*', 'category*', 'product*') ? 'active' : '' }}"
                                         href="#" id="navbarDropdownRole" role="button" data-bs-toggle="dropdown"
                                         aria-expanded="false">
                                         Settings
@@ -76,20 +76,28 @@
                                         href="{{ url('/customer') }}">Customer</a>
                                 </li> --}}
                                 <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle {{ Request::is('supplier*', 'customer*', 'supplierPayment*', 'customerDueCollection*') ? 'active' : '' }}"
+                                    <a class="nav-link dropdown-toggle {{ Request::is('supplier*', 'customer*', 'supplierPayment*', 'customerDueCollection*', 'duereport*') ? 'active' : '' }}"
                                         href="#" id="navbarDropdownRole" role="button" data-bs-toggle="dropdown"
                                         aria-expanded="false">
                                         Supplier & Customer
                                     </a>
                                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownRole">
-                                        <li><a class="dropdown-item {{ Request::is('supplier') ? 'active' : '' }}"
+                                        <li>
+                                            <a class="dropdown-item {{ Request::is('supplier') ? 'active' : '' }}"
                                                 href="{{ url('/supplier') }}">Supplier</a></li>
-                                        <li><a class="dropdown-item {{ Request::is('supplierPayment') ? 'active' : '' }}"
+                                        <li>
+                                            <a class="dropdown-item {{ Request::is('supplierPayment') ? 'active' : '' }}"
                                                 href="{{ url('/supplierPayment') }}">Supplier Payment</a></li>
-                                        <li><a class="dropdown-item {{ Request::is('customer') ? 'active' : '' }}"
+                                        <li>
+                                            <a class="dropdown-item {{ Request::is('customer') ? 'active' : '' }}"
                                                 href="{{ url('/customer') }}">Customers</a></li>
-                                        <li><a class="dropdown-item {{ Request::is('customerDueCollection') ? 'active' : '' }}"
+                                        <li>
+                                            <a class="dropdown-item {{ Request::is('customerDueCollection') ? 'active' : '' }}"
                                                 href="{{ url('/customerDueCollection') }}">Customers Due Collection</a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item {{ Request::is('duereport') ? 'active' : '' }}"
+                                                href="{{ url('duereport') }}">Supplier Due Report</a>
                                         </li>
                                     </ul>
                                 </li>
@@ -102,14 +110,16 @@
                                         href="{{ url('/sale') }}">Sales</a>
                                 </li>
                                 <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle {{ Request::is('duereport*') ? 'active' : '' }}"
+                                    <a class="nav-link dropdown-toggle {{ Request::is('') ? 'active' : '' }}"
                                         href="#" id="navbarDropdownRole" role="button" data-bs-toggle="dropdown"
                                         aria-expanded="false">
                                         Reports
                                     </a>
                                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownRole">
-                                        <li><a class="dropdown-item {{ Request::is('duereport') ? 'active' : '' }}"
-                                                href="{{ url('duereport') }}">Supplier Due Report</a></li>
+                                        <li>
+                                            <a class="dropdown-item {{ Request::is('') ? 'active' : '' }}"
+                                                href="{{ url('#') }}">Report</a>
+                                        </li>
                                     </ul>
                                 </li>
                                 <li class="nav-item dropdown">

@@ -9,6 +9,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SalesController;
+use App\Http\Controllers\SearchController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UserController;
 use App\Models\Sales;
@@ -77,6 +78,10 @@ Route::middleware(['isAdmin'])->group(function () {
     Route::put('supplier/{id}', [SupplierController::class, 'update'])->name('supplier.update');
     Route::delete('supplier/{id}', [SupplierController::class, 'destroy'])->name('supplier.destroy');
     Route::get('duereport', [SupplierController::class, 'dueReport'])->name('supplier.due_report');
+    // In your routes/web.php file
+    Route::get('suppliers/duereport', [SupplierController::class, 'dueReport'])->name('suppliers.dueReport');
+
+    // Route::get('/suppliers', [SearchController::class, 'index'])->name('suppliers.index');
 
     // purchase All Routes
     Route::get('purchase', [PurchaseController::class, 'index'])->name('purchase.index');
