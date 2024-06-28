@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BrandController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\PermissionController;
@@ -8,12 +9,15 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\SaleController;
 use App\Http\Controllers\SalesController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UserController;
 use App\Models\Sales;
 use Illuminate\Support\Facades\Route;
+
+
 
 
 /*
@@ -93,6 +97,23 @@ Route::middleware(['isAdmin'])->group(function () {
     Route::get('purchase/{id}/edit', [PurchaseController::class, 'edit'])->name('purchase.edit');
     Route::put('purchase/{id}', [PurchaseController::class, 'update'])->name('purchase.update');
     Route::delete('purchase/{id}', [PurchaseController::class, 'destroy'])->name('purchase.destroy');
+
+    // Sales All Routes
+    Route::get('sales', [saleController::class, 'index'])->name('sales.index');
+    Route::get('sales/create', [saleController::class, 'create'])->name('sales.create');
+    Route::post('sales', [saleController::class, 'store'])->name('sales.store');
+    Route::get('sales/{id}/show', [saleController::class, 'show'])->name('sales.show');
+    // Route::get('/purchase/{id}', [saleController::class, 'show']);
+    Route::get('sales/invoice/{id}', [saleController::class, 'invoice'])->name('sales.invoice');
+    Route::get('sales/{id}/edit', [saleController::class, 'edit'])->name('sales.edit');
+    Route::put('sales/{id}', [saleController::class, 'update'])->name('sales.update');
+    Route::delete('sales/{id}', [saleController::class, 'destroy'])->name('sales.destroy');
+
+    // cart all routes
+    Route::post('/cart/add', [CartController::class, 'addToCart'])->name('cart.add');
+    Route::post('/cart/remove/{id}', [CartController::class, 'removeFromCart'])->name('cart.remove');
+    Route::post('/purchase/from-cart', [PurchaseController::class, 'purchaseFromCart'])->name('purchase.fromCart');
+    Route::post('/sales/from-cart', [SaleController::class, 'salesFromCart'])->name('sales.fromCart');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

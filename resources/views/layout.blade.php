@@ -106,8 +106,8 @@
                                         href="{{ url('/purchase') }}">Purchase</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link {{ Request::is('sale') ? 'active' : '' }}"
-                                        href="{{ url('/sale') }}">Sales</a>
+                                    <a class="nav-link {{ Request::is('sales') ? 'active' : '' }}"
+                                        href="{{ url('/sales') }}">Sales</a>
                                 </li>
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle {{ Request::is('') ? 'active' : '' }}"

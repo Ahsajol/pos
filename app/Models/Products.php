@@ -33,5 +33,9 @@ class Products extends Model
     {
         return $this->hasMany(Purchases::class, 'product_id');
     }
+    public function sales()
+    {
+        return $this->hasMany(Sales::class, 'product_id');
+    }
     use HasFactory;
 }

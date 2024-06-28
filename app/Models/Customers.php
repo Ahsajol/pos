@@ -17,5 +17,9 @@ class Customers extends Model
         'customercreditlimit',
         'status'
     ];
+    public function customers()
+    {
+        return $this->hasMany(Customers::class, 'id');
+    }
     use HasFactory;
 }

@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cart;
 use App\Models\Inventory;
 use App\Models\Products;
 use App\Models\Purchases;
 use App\Models\Suppliers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PurchaseController extends Controller
 {
@@ -14,8 +16,14 @@ class PurchaseController extends Controller
     {
         $products = Products::get();
         $suppliers = Suppliers::get();
-        $purchases = Purchases::orderBy('id', 'desc')->get();
-        return view('purchase.index', compact('purchases', 'suppliers', 'products'));
+        $purchases = Purchases::orderBy('id', 'desc')->paginate(100);
+        $cartItems = Cart::with('product')
+        ->where('user_id', Auth::id())
+        ->where('transaction_type', 'purchase')
+        ->orderBy('created_at', 'desc')
+        ->get();
+
+        return view('purchase.index', compact('products', 'suppliers', 'purchases', 'cartItems'));
     }
 
     public function create()
@@ -110,5 +118,85 @@ class PurchaseController extends Controller
     {
         $purchase = Purchases::with('supplier', 'product')->findOrFail($id);
         return view('purchase.invoice', compact('purchase'));
+    }
+    //     public function purchaseFromCart(Request $request)
+    //     {
+    //         $cartItems = Cart::where('user_id', Auth::id())->where('transaction_type', 'purchase')->get();
+    //         $supplier_id = $request->supplier_id;
+    //         $purchase = [];
+    // 
+    //         foreach ($cartItems as $item) {
+    //             // var_dump($item->supplier_id);
+    //             // exit;
+    //             // Create a new purchase entry
+    //             $purchase = Purchases::create([
+    //                 'supplier_id' => $item->supplier_id,
+    //                 'product_id' => $item->product_id,
+    //                 'quantity' => $item->quantity,
+    //                 'price' => $item->product->price,
+    //                 'total_price' => $item->quantity * $item->product->price,
+    //                 // 'paid_amount' => $item->quantity * $item->product->price,
+    //                 'paid_amount' => $item->paid_amount,
+    //             ]);
+    // 
+    //             // Update inventory
+    //             $inventory = Inventory::firstOrNew(['product_id' => $item->product_id]);
+    //             $inventory->stock_qty += $item->quantity;
+    //             $inventory->save();
+    // 
+    //             // Update supplier due
+    //             $supplier = Suppliers::findOrFail($item->supplier_id);
+    //             $supplier->supplierpreviousdue += ($purchase->total_price - $purchase->paid_amount);
+    //             $supplier->save();
+    //         }
+    // 
+    //         // Clear the cart
+    //         Cart::where('user_id', Auth::id())->where('transaction_type', 'purchase')->delete();
+    // 
+    //         return redirect()->route('purchase.invoice', $purchase->id)
+    //             ->with('success', 'Products purchased successfully.');
+    //     }
+    public function purchaseFromCart(Request $request)
+    {
+        $cartItems = Cart::where('user_id', Auth::id())->where('transaction_type', 'purchase')->get();
+
+        $purchases = [];
+
+        foreach ($cartItems as $item) {
+            // Create a new purchase entry
+            $purchase = Purchases::create([
+                'supplier_id' => $item->supplier_id,
+                'product_id' => $item->product_id,
+                'quantity' => $item->quantity,
+                'price' => $item->product->price,
+                'total_price' => $item->quantity * $item->product->price,
+                'paid_amount' => $item->paid_amount,
+            ]);
+
+            // Update inventory
+            $inventory = Inventory::firstOrNew(['product_id' => $item->product_id]);
+            $inventory->stock_qty += $item->quantity;
+            $inventory->save();
+
+            // Update supplier due
+            $supplier = Suppliers::findOrFail($item->supplier_id);
+            $supplier->supplierpreviousdue += ($purchase->total_price - $purchase->paid_amount);
+            $supplier->save();
+
+            // Add purchase to the list
+            $purchases[] = $purchase;
+        }
+
+        // Clear the cart
+        Cart::where('user_id', Auth::id())->where('transaction_type', 'purchase')->delete();
+
+        // If you want to redirect to the invoice of the last purchase made
+        if (!empty($purchases)) {
+            return redirect()->route('purchase.invoice', end($purchases)->id)
+                ->with('success', 'Products purchased successfully.');
+        } else {
+            return redirect()->route('purchase.index')
+            ->with('success', 'No items in the cart.');
+        }
     }
 }
